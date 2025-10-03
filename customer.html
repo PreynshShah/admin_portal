@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThreadCo - Customer Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="customer.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-thread"></i>
+            <h2>ThreadCo Admin</h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li><a href="admin.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> <span>Orders</span></a></li>
+                <li class="active"><a href="#"><i class="fas fa-users"></i> <span>Customers</span></a></li>
+                <li><a href="ventory.html"><i class="fas fa-boxes"></i> <span>Inventory</span></a></li>
+                <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> <span>Analytics</span></a></li>
+                <li><a href="setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Customer Management</h1>
+            <div class="user-info">
+                <img src="https://i.pravatar.cc/150?img=12" alt="Admin User">
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h2>All Customers</h2>
+            <div class="page-actions">
+                <button class="btn btn-outline"><i class="fas fa-download"></i> Export</button>
+                <button class="btn btn-primary" id="add-customer-btn"><i class="fas fa-plus"></i> Add Customer</button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-icon bg-primary">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>2,458</h3>
+                    <p>Total Customers</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon bg-success">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>1,247</h3>
+                    <p>Active Customers</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" data-tab="all">All Customers</div>
+            <div class="tab" data-tab="active">Active</div>
+            <div class="tab" data-tab="inactive">Inactive</div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="search">Search Customers</label>
+                    <input type="text" id="search" placeholder="Search by name, email, phone...">
+                </div>
+                <div class="filter-group">
+                    <label for="status">Status</label>
+                    <select id="status">
+                        <option value="">All Statuses</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sort">Sort By</label>
+                    <select id="sort">
+                        <option value="name">Name A-Z</option>
+                        <option value="name-desc">Name Z-A</option>
+                        <option value="recent">Most Recent</option>
+                        <option value="orders">Most Orders</option>
+                        <option value="spent">Most Spent</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button class="btn btn-outline">Reset Filters</button>
+                <button class="btn btn-primary">Apply Filters</button>
+            </div>
+        </div>
+
+        <!-- Customers Table -->
+        <div class="table-container">
+            <table id="customers-table">
+                <thead>
+                    <tr>
+                        <th data-sort="name">Customer <i class="fas fa-sort"></i></th>
+                        <th data-sort="email">Email <i class="fas fa-sort"></i></th>
+                        <th data-sort="phone">Phone <i class="fas fa-sort"></i></th>
+                        <th data-sort="orders">Orders <i class="fas fa-sort"></i></th>
+                        <th data-sort="status">Status <i class="fas fa-sort"></i></th>
+                        <th data-sort="joined">Joined <i class="fas fa-sort"></i></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <img src="https://i.pravatar.cc/150?img=1" class="customer-avatar" alt="John Smith">
+                                <div style="margin-left: 10px;">
+                                    <div>John Smith</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray);">C-1001</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>john.smith@example.com</td>
+                        <td>(555) 123-4567</td>
+                        <td>15</td>
+                        <td><span class="status status-active">Active</span></td>
+                        <td>Jan 15, 2022</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-customer" data-id="1001">View</button>
+                                <button class="btn btn-success btn-sm">Edit</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <img src="https://i.pravatar.cc/150?img=2" class="customer-avatar" alt="Sarah Johnson">
+                                <div style="margin-left: 10px;">
+                                    <div>Sarah Johnson</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray);">C-1002</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>sarah.j@example.com</td>
+                        <td>(555) 987-6543</td>
+                        <td>8</td>
+                        <td><span class="status status-premium">Premium</span></td>
+                        <td>Mar 22, 2022</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-customer" data-id="1002">View</button>
+                                <button class="btn btn-success btn-sm">Edit</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <img src="https://i.pravatar.cc/150?img=3" class="customer-avatar" alt="Michael Brown">
+                                <div style="margin-left: 10px;">
+                                    <div>Michael Brown</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray);">C-1003</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>m.brown@example.com</td>
+                        <td>(555) 456-7890</td>
+                        <td>22</td>
+                        <td><span class="status status-active">Active</span></td>
+                        <td>Feb 5, 2021</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-customer" data-id="1003">View</button>
+                                <button class="btn btn-success btn-sm">Edit</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <img src="https://i.pravatar.cc/150?img=4" class="customer-avatar" alt="Emily Davis">
+                                <div style="margin-left: 10px;">
+                                    <div>Emily Davis</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray);">C-1004</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>emily.d@example.com</td>
+                        <td>(555) 234-5678</td>
+                        <td>3</td>
+                        <td><span class="status status-inactive">Inactive</span></td>
+                        <td>Nov 18, 2022</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-customer" data-id="1004">View</button>
+                                <button class="btn btn-success btn-sm">Edit</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <img src="https://i.pravatar.cc/150?img=5" class="customer-avatar" alt="Robert Wilson">
+                                <div style="margin-left: 10px;">
+                                    <div>Robert Wilson</div>
+                                    <div style="font-size: 0.8rem; color: var(--gray);">C-1005</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>robert.w@example.com</td>
+                        <td>(555) 345-6789</td>
+                        <td>12</td>
+                        <td><span class="status status-premium">Premium</span></td>
+                        <td>Jul 30, 2021</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-customer" data-id="1005">View</button>
+                                <button class="btn btn-success btn-sm">Edit</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <div class="pagination-info">Showing 1-5 of 2,458 customers</div>
+                <div class="pagination-controls">
+                    <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn">5</button>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Detail Modal -->
+    <div class="modal" id="customer-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Customer Details - <span id="modal-customer-name"></span></h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <div class="customer-profile">
+                <img src="" class="customer-avatar-large" id="modal-customer-avatar" alt="Customer Avatar">
+                <div class="customer-info">
+                    <h2 id="modal-customer-fullname"></h2>
+                    <p id="modal-customer-email"></p>
+                    <p id="modal-customer-phone"></p>
+                    <p id="modal-customer-status"></p>
+                    
+                    <div class="customer-stats">
+                        <div class="customer-stat">
+                            <h3 id="modal-total-orders">0</h3>
+                            <p>Total Orders</p>
+                        </div>
+                        <div class="customer-stat">
+                            <h3 id="modal-avg-order">$0.00</h3>
+                            <p>Avg. Order Value</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="customer-details">
+                <div>
+                    <div class="detail-section">
+                        <h3>Personal Information</h3>
+                        <div class="detail-item">
+                            <div class="detail-label">Customer ID:</div>
+                            <div id="modal-customer-id"></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Join Date:</div>
+                            <div id="modal-join-date"></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Last Order:</div>
+                            <div id="modal-last-order"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Contact Information</h3>
+                        <div class="detail-item">
+                            <div class="detail-label">Address:</div>
+                            <div id="modal-customer-address"></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">City:</div>
+                            <div id="modal-customer-city"></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Country:</div>
+                            <div id="modal-customer-country"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="detail-section">
+                        <h3>Recent Orders</h3>
+                        <div id="recent-orders-list">
+                            <!-- Orders will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Notes</h3>
+                        <p id="modal-customer-notes">No notes available for this customer.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-outline">Send Email</button>
+                <button class="btn btn-warning">Add Note</button>
+                <button class="btn btn-primary">Edit Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Customer data for the modal
+        const customers = {
+            '1001': {
+                name: 'John Smith',
+                email: 'john.smith@example.com',
+                phone: '(555) 123-4567',
+                status: 'Active',
+                joinDate: 'Jan 15, 2022',
+                lastOrder: 'May 15, 2023',
+                address: '123 Main St, Anytown, USA 12345',
+                city: 'Anytown',
+                country: 'United States',
+                totalOrders: 15,
+                totalSpent: 2458.50,
+                avgOrder: 163.90,
+                notes: 'Premium customer with frequent large orders. Prefers email communication.',
+                avatar: 'https://i.pravatar.cc/150?img=1',
+                recentOrders: [
+                    { id: 'TC-5842', date: 'May 15, 2023', amount: 245.50, status: 'Pending' },
+                    { id: 'TC-5810', date: 'Apr 28, 2023', amount: 189.99, status: 'Delivered' },
+                    { id: 'TC-5795', date: 'Apr 12, 2023', amount: 320.75, status: 'Delivered' }
+                ]
+            },
+            '1002': {
+                name: 'Sarah Johnson',
+                email: 'sarah.j@example.com',
+                phone: '(555) 987-6543',
+                status: 'Premium',
+                joinDate: 'Mar 22, 2022',
+                lastOrder: 'May 14, 2023',
+                address: '456 Oak Ave, Somewhere, USA 67890',
+                city: 'Somewhere',
+                country: 'United States',
+                totalOrders: 8,
+                totalSpent: 1289.99,
+                avgOrder: 161.25,
+                notes: 'Interested in embroidery threads. Send new product updates.',
+                avatar: 'https://i.pravatar.cc/150?img=2',
+                recentOrders: [
+                    { id: 'TC-5841', date: 'May 14, 2023', amount: 189.99, status: 'Processing' },
+                    { id: 'TC-5805', date: 'Apr 20, 2023', amount: 156.30, status: 'Delivered' },
+                    { id: 'TC-5782', date: 'Mar 30, 2023', amount: 275.00, status: 'Delivered' }
+                ]
+            },
+            '1003': {
+                name: 'Michael Brown',
+                email: 'm.brown@example.com',
+                phone: '(555) 456-7890',
+                status: 'Active',
+                joinDate: 'Feb 5, 2021',
+                lastOrder: 'May 13, 2023',
+                address: '789 Pine Rd, Nowhere, USA 54321',
+                city: 'Nowhere',
+                country: 'United States',
+                totalOrders: 22,
+                totalSpent: 3520.75,
+                avgOrder: 160.03,
+                notes: 'Bulk buyer for industrial use. Contact for volume discounts.',
+                avatar: 'https://i.pravatar.cc/150?img=3',
+                recentOrders: [
+                    { id: 'TC-5840', date: 'May 13, 2023', amount: 320.75, status: 'Shipped' },
+                    { id: 'TC-5815', date: 'May 2, 2023', amount: 420.25, status: 'Delivered' },
+                    { id: 'TC-5790', date: 'Apr 18, 2023', amount: 275.00, status: 'Delivered' }
+                ]
+            }
+        };
+
+        // Modal functionality
+        const modal = document.getElementById('customer-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const viewCustomerButtons = document.querySelectorAll('.view-customer');
+
+        viewCustomerButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const customerId = button.getAttribute('data-id');
+                showCustomerDetails(customerId);
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        function showCustomerDetails(customerId) {
+            const customer = customers[customerId];
+            if (!customer) return;
+            
+            document.getElementById('modal-customer-name').textContent = customer.name;
+            document.getElementById('modal-customer-fullname').textContent = customer.name;
+            document.getElementById('modal-customer-email').textContent = customer.email;
+            document.getElementById('modal-customer-phone').textContent = customer.phone;
+            document.getElementById('modal-customer-status').textContent = customer.status;
+            document.getElementById('modal-customer-avatar').src = customer.avatar;
+            document.getElementById('modal-customer-id').textContent = 'C-' + customerId;
+            document.getElementById('modal-join-date').textContent = customer.joinDate;
+            document.getElementById('modal-last-order').textContent = customer.lastOrder;
+            document.getElementById('modal-customer-address').textContent = customer.address;
+            document.getElementById('modal-customer-city').textContent = customer.city;
+            document.getElementById('modal-customer-country').textContent = customer.country;
+            document.getElementById('modal-customer-notes').textContent = customer.notes;
+            
+            document.getElementById('modal-total-orders').textContent = customer.totalOrders;
+            document.getElementById('modal-total-spent').textContent = '$' + customer.totalSpent.toFixed(2);
+            document.getElementById('modal-avg-order').textContent = '$' + customer.avgOrder.toFixed(2);
+            
+            // Display recent orders
+            const ordersList = document.getElementById('recent-orders-list');
+            ordersList.innerHTML = '';
+            
+            customer.recentOrders.forEach(order => {
+                const orderElement = document.createElement('div');
+                orderElement.className = 'order-item';
+                orderElement.innerHTML = `
+                    <div>
+                        <strong>${order.id}</strong><br>
+                        <small>${order.date}</small>
+                    </div>
+                    <div>$${order.amount.toFixed(2)}</div>
+                    <div><span class="status status-${order.status.toLowerCase()}">${order.status}</span></div>
+                `;
+                ordersList.appendChild(orderElement);
+            });
+            
+            modal.style.display = 'flex';
+        }
+
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Filter table based on tab
+                const tabId = tab.getAttribute('data-tab');
+                filterTableByTab(tabId);
+            });
+        });
+
+        function filterTableByTab(tabId) {
+            // In a real application, you would filter the table data
+            console.log(`Filtering by tab: ${tabId}`);
+        }
+
+        // Table sorting functionality
+        const table = document.getElementById('customers-table');
+        const headers = table.querySelectorAll('th[data-sort]');
+        
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const sortBy = header.getAttribute('data-sort');
+                sortTable(sortBy);
+            });
+        });
+
+        function sortTable(sortBy) {
+            // This is a simplified sorting implementation
+            // In a real application, you would implement proper sorting logic
+            console.log(`Sorting by ${sortBy}`);
+        }
+
+        // Filter functionality
+        const applyFiltersButton = document.querySelector('.filter-actions .btn-primary');
+        applyFiltersButton.addEventListener('click', applyFilters);
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const statusFilter = document.getElementById('status').value;
+            const sortBy = document.getElementById('sort').value;
+            
+            // In a real application, you would filter the data and update the table
+            console.log('Applying filters:', { searchTerm, statusFilter, sortBy });
+        }
+
+        // Add customer button
+        document.getElementById('add-customer-btn').addEventListener('click', () => {
+            alert('Add Customer functionality would open a form here.');
+        });
+    </script>
+</body>
+</html>

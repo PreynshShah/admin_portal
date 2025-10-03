@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThreadCo - Orders Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="order.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-thread"></i>
+            <h2>ThreadCo Admin</h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li><a href="admin.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                <li class="active"><a href="#"><i class="fas fa-shopping-cart"></i> <span>Orders</span></a></li>
+                <li><a href="customer.html"><i class="fas fa-users"></i> <span>Customers</span></a></li>
+                <li><a href="ventory.html"><i class="fas fa-boxes"></i> <span>Inventory</span></a></li>
+                <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> <span>Analytics</span></a></li>
+                <li><a href="setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Orders Management</h1>
+            <div class="user-info">
+                <img src="https://i.pravatar.cc/150?img=12" alt="Admin User">
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h2>All Orders</h2>
+            <div class="page-actions">
+                <button class="btn btn-outline"><i class="fas fa-download"></i> Export</button>
+                <button class="btn btn-primary"><i class="fas fa-plus"></i> New Order</button>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="search">Search Orders</label>
+                    <input type="text" id="search" placeholder="Search by order ID, customer name...">
+                </div>
+                <div class="filter-group">
+                    <label for="status">Status</label>
+                    <select id="status">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="processing">Processing</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="date-from">Date From</label>
+                    <input type="date" id="date-from">
+                </div>
+                <div class="filter-group">
+                    <label for="date-to">Date To</label>
+                    <input type="date" id="date-to">
+                </div>
+                <div class="filter-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority">
+                        <option value="">All Priorities</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button class="btn btn-outline">Reset Filters</button>
+                <button class="btn btn-primary">Apply Filters</button>
+            </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="table-container">
+            <table id="orders-table">
+                <thead>
+                    <tr>
+                        <th data-sort="id">Order ID <i class="fas fa-sort"></i></th>
+                        <th data-sort="customer">Customer <i class="fas fa-sort"></i></th>
+                        <th data-sort="date">Date <i class="fas fa-sort"></i></th>
+                        <th data-sort="amount">Amount <i class="fas fa-sort"></i></th>
+                        <th data-sort="status">Status <i class="fas fa-sort"></i></th>
+                        <th data-sort="priority">Priority <i class="fas fa-sort"></i></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#TC-5842</td>
+                        <td>John Smith</td>
+                        <td>May 15, 2023</td>
+                        <td>$245.50</td>
+                        <td><span class="status status-pending">Pending</span></td>
+                        <td><span class="priority priority-high">High</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-order" data-id="5842">View</button>
+                                <button class="btn btn-success btn-sm">Process</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#TC-5841</td>
+                        <td>Sarah Johnson</td>
+                        <td>May 14, 2023</td>
+                        <td>$189.99</td>
+                        <td><span class="status status-processing">Processing</span></td>
+                        <td><span class="priority priority-medium">Medium</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-order" data-id="5841">View</button>
+                                <button class="btn btn-success btn-sm">Ship</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#TC-5840</td>
+                        <td>Michael Brown</td>
+                        <td>May 13, 2023</td>
+                        <td>$320.75</td>
+                        <td><span class="status status-shipped">Shipped</span></td>
+                        <td><span class="priority priority-low">Low</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-order" data-id="5840">View</button>
+                                <button class="btn btn-warning btn-sm">Track</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#TC-5839</td>
+                        <td>Emily Davis</td>
+                        <td>May 12, 2023</td>
+                        <td>$156.30</td>
+                        <td><span class="status status-delivered">Delivered</span></td>
+                        <td><span class="priority priority-low">Low</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-order" data-id="5839">View</button>
+                                <button class="btn btn-success btn-sm">Invoice</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#TC-5838</td>
+                        <td>Robert Wilson</td>
+                        <td>May 11, 2023</td>
+                        <td>$275.00</td>
+                        <td><span class="status status-processing">Processing</span></td>
+                        <td><span class="priority priority-high">High</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-order" data-id="5838">View</button>
+                                <button class="btn btn-success btn-sm">Ship</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#TC-5837</td>
+                        <td>Lisa Anderson</td>
+                        <td>May 10, 2023</td>
+                        <td>$420.25</td>
+                        <td><span class="status status-cancelled">Cancelled</span></td>
+                        <td><span class="priority priority-medium">Medium</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-order" data-id="5837">View</button>
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <div class="pagination-info">Showing 1-6 of 1247 orders</div>
+                <div class="pagination-controls">
+                    <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn">5</button>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div class="modal" id="order-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Order Details - #TC-<span id="modal-order-id"></span></h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <div class="order-details">
+                <div>
+                    <h3>Customer Information</h3>
+                    <p><strong>Name:</strong> <span id="customer-name"></span></p>
+                    <p><strong>Email:</strong> <span id="customer-email"></span></p>
+                    <p><strong>Phone:</strong> <span id="customer-phone"></span></p>
+                    <p><strong>Address:</strong> <span id="customer-address"></span></p>
+                </div>
+                
+                <div>
+                    <h3>Order Information</h3>
+                    <p><strong>Order Date:</strong> <span id="order-date"></span></p>
+                    <p><strong>Status:</strong> <span id="order-status"></span></p>
+                    <p><strong>Priority:</strong> <span id="order-priority"></span></p>
+                    <p><strong>Payment Method:</strong> <span id="payment-method"></span></p>
+                </div>
+            </div>
+            
+            <div class="order-items">
+                <h3>Order Items</h3>
+                <div class="order-item">
+                    <div><strong>Product</strong></div>
+                    <div><strong>Quantity</strong></div>
+                    <div><strong>Price</strong></div>
+                    <div><strong>Total</strong></div>
+                </div>
+                <div id="order-items-list">
+                    <!-- Items will be populated by JavaScript -->
+                </div>
+                <div class="order-totals">
+                    <p><strong>Subtotal: $<span id="subtotal">0.00</span></strong></p>
+                    <p><strong>Shipping: $<span id="shipping">0.00</span></strong></p>
+                    <p><strong>Tax: $<span id="tax">0.00</span></strong></p>
+                    <p><strong>Total: $<span id="total">0.00</span></strong></p>
+                </div>
+            </div>
+            
+            <div class="order-actions">
+                <button class="btn btn-outline">Print Invoice</button>
+                <button class="btn btn-primary">Update Status</button>
+                <button class="btn btn-success">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Order data for the modal
+        const orders = {
+            '5842': {
+                customer: {
+                    name: 'John Smith',
+                    email: 'john.smith@example.com',
+                    phone: '(555) 123-4567',
+                    address: '123 Main St, Anytown, USA 12345'
+                },
+                date: 'May 15, 2023',
+                status: 'Pending',
+                priority: 'High',
+                payment: 'Credit Card',
+                items: [
+                    { name: 'Cotton Thread Spool - Red', quantity: 10, price: 4.99 },
+                    { name: 'Embroidery Thread - Gold', quantity: 5, price: 7.99 },
+                    { name: 'Industrial Thread - Black', quantity: 2, price: 12.50 }
+                ],
+                shipping: 8.99,
+                tax: 18.45
+            },
+            '5841': {
+                customer: {
+                    name: 'Sarah Johnson',
+                    email: 'sarah.j@example.com',
+                    phone: '(555) 987-6543',
+                    address: '456 Oak Ave, Somewhere, USA 67890'
+                },
+                date: 'May 14, 2023',
+                status: 'Processing',
+                priority: 'Medium',
+                payment: 'PayPal',
+                items: [
+                    { name: 'Cotton Thread Spool - Blue', quantity: 8, price: 4.99 },
+                    { name: 'Sewing Thread - White', quantity: 3, price: 3.99 }
+                ],
+                shipping: 5.99,
+                tax: 12.30
+            },
+            '5840': {
+                customer: {
+                    name: 'Michael Brown',
+                    email: 'm.brown@example.com',
+                    phone: '(555) 456-7890',
+                    address: '789 Pine Rd, Nowhere, USA 54321'
+                },
+                date: 'May 13, 2023',
+                status: 'Shipped',
+                priority: 'Low',
+                payment: 'Credit Card',
+                items: [
+                    { name: 'Industrial Thread - Black', quantity: 15, price: 12.50 },
+                    { name: 'Heavy Duty Thread - Green', quantity: 5, price: 9.99 }
+                ],
+                shipping: 12.99,
+                tax: 24.75
+            }
+        };
+
+        // Modal functionality
+        const modal = document.getElementById('order-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const viewOrderButtons = document.querySelectorAll('.view-order');
+
+        viewOrderButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const orderId = button.getAttribute('data-id');
+                showOrderDetails(orderId);
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        function showOrderDetails(orderId) {
+            const order = orders[orderId];
+            if (!order) return;
+            
+            document.getElementById('modal-order-id').textContent = orderId;
+            document.getElementById('customer-name').textContent = order.customer.name;
+            document.getElementById('customer-email').textContent = order.customer.email;
+            document.getElementById('customer-phone').textContent = order.customer.phone;
+            document.getElementById('customer-address').textContent = order.customer.address;
+            document.getElementById('order-date').textContent = order.date;
+            document.getElementById('order-status').textContent = order.status;
+            document.getElementById('order-priority').textContent = order.priority;
+            document.getElementById('payment-method').textContent = order.payment;
+            
+            // Calculate and display order items and totals
+            const itemsList = document.getElementById('order-items-list');
+            itemsList.innerHTML = '';
+            
+            let subtotal = 0;
+            order.items.forEach(item => {
+                const itemTotal = item.quantity * item.price;
+                subtotal += itemTotal;
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = 'order-item';
+                itemElement.innerHTML = `
+                    <div>${item.name}</div>
+                    <div>${item.quantity}</div>
+                    <div>$${item.price.toFixed(2)}</div>
+                    <div>$${itemTotal.toFixed(2)}</div>
+                `;
+                itemsList.appendChild(itemElement);
+            });
+            
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('shipping').textContent = order.shipping.toFixed(2);
+            document.getElementById('tax').textContent = order.tax.toFixed(2);
+            document.getElementById('total').textContent = (subtotal + order.shipping + order.tax).toFixed(2);
+            
+            modal.style.display = 'flex';
+        }
+
+        // Table sorting functionality
+        const table = document.getElementById('orders-table');
+        const headers = table.querySelectorAll('th[data-sort]');
+        
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const sortBy = header.getAttribute('data-sort');
+                sortTable(sortBy);
+            });
+        });
+
+        function sortTable(sortBy) {
+            // This is a simplified sorting implementation
+            // In a real application, you would implement proper sorting logic
+            console.log(`Sorting by ${sortBy}`);
+        }
+
+        // Filter functionality
+        const applyFiltersButton = document.querySelector('.filter-actions .btn-primary');
+        applyFiltersButton.addEventListener('click', applyFilters);
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const statusFilter = document.getElementById('status').value;
+            const priorityFilter = document.getElementById('priority').value;
+            const dateFrom = document.getElementById('date-from').value;
+            const dateTo = document.getElementById('date-to').value;
+            
+            // In a real application, you would filter the data and update the table
+            console.log('Applying filters:', { searchTerm, statusFilter, priorityFilter, dateFrom, dateTo });
+        }
+    </script>
+</body>
+</html>

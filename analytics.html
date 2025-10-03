@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThreadCo - Analytics Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="analytics.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-thread"></i>
+            <h2>ThreadCo Admin</h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li><a href="admin.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> <span>Orders</span></a></li>
+                <li><a href="customer.html"><i class="fas fa-users"></i> <span>Customers</span></a></li>
+                <li><a href="ventory.html"><i class="fas fa-boxes"></i> <span>Inventory</span></a></li>
+                <li class="active"><a href="#"><i class="fas fa-chart-bar"></i> <span>Analytics</span></a></li>
+                <li><a href="setting.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Analytics Dashboard</h1>
+            <div class="user-info">
+                <img src="https://i.pravatar.cc/150?img=12" alt="Admin User">
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <!-- Date Range Selector -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Reporting Period</h3>
+                <div style="display: flex; gap: 10px;">
+                    <select class="btn-outline">
+                        <option>Last 7 days</option>
+                        <option selected>Last 30 days</option>
+                        <option>Last 90 days</option>
+                        <option>Last 12 months</option>
+                        <option>Custom Range</option>
+                    </select>
+                    <button class="btn btn-primary"><i class="fas fa-download"></i> Export Report</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Total Revenue</h3>
+                    <div class="card-icon bg-primary">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                </div>
+                <h3>$24,582</h3>
+                <p><i class="fas fa-arrow-up" style="color: #2ecc71;"></i> 12.5% from last month</p>
+            </div>
+             
+            <div class="card">
+                <div class="card-header">
+                    <h3>Orders</h3>
+                    <div class="card-icon bg-warning">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                </div>
+                <h3>1,247</h3>
+                <p><i class="fas fa-arrow-up" style="color: #2ecc71;"></i> 8.3% from last month</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Customers</h3>
+                    <div class="card-icon bg-success">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <h3>2,458</h3>
+                <p><i class="fas fa-arrow-up" style="color: #2ecc71;"></i> 5.2% from last month</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Avg. Order Value</h3>
+                    <div class="card-icon bg-purple">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+                <h3>$98.45</h3>
+                <p><i class="fas fa-arrow-up" style="color: #2ecc71;"></i> 3.7% from last month</p>
+            </div>
+        </div>
+
+        <!-- Analytics Charts -->
+        <div class="analytics-charts">
+            <!-- Sales Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Revenue Overview</h3>
+                    <div class="chart-actions">
+                        <select>
+                            <option>Revenue</option>
+                            <option>Orders</option>
+                            <option>Customers</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Revenue by Category -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Revenue by Category</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Analytics -->
+        <div class="analytics-grid">
+            <!-- Top Products -->
+            <div class="top-products">
+                <div class="chart-header">
+                    <h3>Top Selling Products</h3>
+                    <button class="btn btn-outline">View All</button>
+                </div>
+                <div class="product-list">
+                    <div class="product-item">
+                        <div class="product-rank">1</div>
+                        <div class="product-info">
+                            <h4>Cotton Thread Spool - Red</h4>
+                            <p>Thread Category</p>
+                        </div>
+                        <div class="product-sales">$2,458</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-rank">2</div>
+                        <div class="product-info">
+                            <h4>Embroidery Thread - Gold</h4>
+                            <p>Thread Category</p>
+                        </div>
+                        <div class="product-sales">$1,892</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-rank">3</div>
+                        <div class="product-info">
+                            <h4>Industrial Thread - Black</h4>
+                            <p>Thread Category</p>
+                        </div>
+                        <div class="product-sales">$1,745</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-rank">4</div>
+                        <div class="product-info">
+                            <h4>Wool Yarn - Natural</h4>
+                            <p>Yarn Category</p>
+                        </div>
+                        <div class="product-sales">$1,523</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-rank">5</div>
+                        <div class="product-info">
+                            <h4>Thread Organizer Box</h4>
+                            <p>Accessories</p>
+                        </div>
+                        <div class="product-sales">$1,287</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Acquisition -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Customer Acquisition</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="acquisitionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Metrics -->
+        <div class="chart-container" style="margin-top: 20px;">
+            <div class="chart-header">
+                <h3>Performance Metrics</h3>
+                <div class="chart-actions">
+                    <select>
+                        <option>Last 30 days</option>
+                        <option>Last 90 days</option>
+                        <option>Last 12 months</option>
+                    </select>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sales Chart
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            const salesChart = new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [12000, 19000, 15000, 18000, 22000, 24582, 21000, 23000, 25500, 24500, 26000, 28000],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Orders',
+                        data: [800, 950, 870, 920, 1100, 1247, 1050, 1150, 1280, 1200, 1300, 1400],
+                        borderColor: '#f39c12',
+                        backgroundColor: 'rgba(243, 156, 18, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Category Chart
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            const categoryChart = new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Thread', 'Yarn', 'Accessories', 'Tools'],
+                    datasets: [{
+                        data: [45, 25, 20, 10],
+                        backgroundColor: [
+                            '#3498db',
+                            '#2ecc71',
+                            '#f39c12',
+                            '#9b59b6'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Acquisition Chart
+            const acquisitionCtx = document.getElementById('acquisitionChart').getContext('2d');
+            const acquisitionChart = new Chart(acquisitionCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Direct', 'Social Media', 'Email', 'Referral', 'Organic Search'],
+                    datasets: [{
+                        label: 'New Customers',
+                        data: [320, 190, 270, 140, 350],
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.7)',
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(243, 156, 18, 0.7)',
+                            'rgba(155, 89, 182, 0.7)',
+                            'rgba(231, 76, 60, 0.7)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Performance Chart
+            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+            const performanceChart = new Chart(performanceCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Revenue', 'Orders', 'Customers', 'Avg. Order Value', 'Conversion Rate', 'Customer Satisfaction'],
+                    datasets: [{
+                        label: 'Current Month',
+                        data: [85, 75, 90, 80, 70, 95],
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        borderColor: '#3498db',
+                        pointBackgroundColor: '#3498db',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#3498db'
+                    }, {
+                        label: 'Previous Month',
+                        data: [70, 65, 80, 75, 60, 85],
+                        backgroundColor: 'rgba(243, 156, 18, 0.2)',
+                        borderColor: '#f39c12',
+                        pointBackgroundColor: '#f39c12',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#f39c12'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+
+            // Update charts on window resize
+            window.addEventListener('resize', function() {
+                salesChart.resize();
+                categoryChart.resize();
+                acquisitionChart.resize();
+                performanceChart.resize();
+            });
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
